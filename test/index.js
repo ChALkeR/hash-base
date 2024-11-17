@@ -1,4 +1,5 @@
 'use strict'
+var Buffer = require('safe-buffer').Buffer
 var test = require('tape')
 var HashBase = require('../')
 
@@ -108,7 +109,7 @@ test('HashBase#update', function (t) {
 
   t.test('decode string with custom encoding', function (t) {
     t.plan(1)
-    var buffer = Buffer.allocUnsafe(64).fill(0x42)
+    var buffer = Buffer.alloc(64, 0x42)
     t.base._update = function () { t.same(this._block, buffer) }
     t.base.update(buffer.toString('hex'), 'hex')
     t.end()
